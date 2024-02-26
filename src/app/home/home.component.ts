@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Renderer2, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import lgZoom from 'lightgallery/plugins/zoom';
-import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import { BeforeSlideDetail } from 'lightgallery/lg-events';
 import { ipcRenderer } from 'electron';
 import * as fs from 'fs';
@@ -18,13 +17,12 @@ export class HomeComponent implements OnInit {
 
   settings = {
     counter: true,
-    thumbnail:true,
-    animateThumb: false,
-    showThumbByDefault: false,
-    plugins: [lgZoom, lgThumbnail],
+    plugins: [lgZoom],
   };
 
-  constructor(private router: Router, private imageCompress: NgxImageCompressService) { }
+  constructor(
+    private router: Router, private imageCompress: NgxImageCompressService, private renderer: Renderer2, private elementRef: ElementRef
+    ) { }
 
   ngOnInit(): void {
     console.log('HomeComponent INIT');
@@ -37,9 +35,11 @@ export class HomeComponent implements OnInit {
 
   images: string[] = [];
   thumbnails: string[] = [];
+  iconSizeSlider: number = 100;
 
   loadImagesFromFolder(folderPath: string) {
     fs.readdir(folderPath, (err, files) => {
+
       if (err) {
         console.error('Error reading folder:', err);
         return;
@@ -73,4 +73,12 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  onSliderChange(event: Event) {
+    const elements = this.elementRef.nativeElement.querySelectorAll('.img-responsive-wrapper');
+
+    // @ts-ignore
+    elements.forEach(element => {
+      this.renderer.setStyle(element, 'height', this.iconSizeSlider + 'px');
+    });
+  }
 }

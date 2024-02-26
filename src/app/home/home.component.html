@@ -1,20 +1,22 @@
 <div class="container">
-  <h1 class="title">
-    {{ 'PAGES.HOME.TITLE' | translate }}
-  </h1>
-  <p>Hello gallery?</p>
-  <a routerLink="/detail">{{ 'PAGES.HOME.GO_TO_DETAIL' | translate }}</a>
 
-  <button (click)="openFolderDialog()">Open Folder</button>
+  <!-- <div *ngIf="images.length == -1; else noImagesMessage"> -->
+    <div id="open-image-folder" (click)="openFolderDialog()">Open Folder</div>
+  <!-- </div> -->
+
+  <input type="range" min="50" max="700" step="1" [(ngModel)]="iconSizeSlider" (input)="onSliderChange($event)">
 
   <div id="gallery-wrapper">
     <div *ngIf="images.length > 0">
       <lightgallery [settings]="settings" [onBeforeSlide]="onBeforeSlide">
-          <a *ngFor="let link of images" [href]="link" class="gallery-item">
-          <div class="img-responsive-wrapper">
-            <img [src]="thumbnails[0]" alt="Image" class="img-responsive">
-          </div>
-        </a>
+
+          <a *ngFor="let link of images; let i = index" [href]="link" class="gallery-item" [attr.data-index]="i+1">
+            <div class="img-responsive-wrapper" [style.height.px]="iconSizeSlider">
+              <img [src]="thumbnails[i]" alt="Image" class="img-responsive">
+            </div>
+            <!-- <span class="img-idx">{{ i + 1}}</span> -->
+          </a>
+        
       </lightgallery>
     </div>
   </div>
@@ -26,3 +28,7 @@
     </lightgallery>
   </div>
 </div>
+
+<ng-template #noImagesMessage>
+  <p>No images found</p>
+</ng-template>

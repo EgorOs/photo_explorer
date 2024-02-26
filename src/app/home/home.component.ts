@@ -15,6 +15,25 @@ export class HomeComponent implements OnInit {
     plugins: [lgZoom]
   };
 
+  imageLinks: string[] = [
+    'https://assets.popbuzz.com/2020/40/is-joji-pink-guy-are-they-the-same-person-1602077911-view-0.jpg',
+    'https://i.etsystatic.com/19913145/r/il/993892/4865262854/il_570xN.4865262854_awu7.jpg',
+    'https://i1.sndcdn.com/artworks-000105986104-hwbpls-t500x500.jpg',
+    'https://assets.popbuzz.com/2020/40/is-joji-pink-guy-are-they-the-same-person-1602077911-view-0.jpg',
+    'https://i.etsystatic.com/19913145/r/il/993892/4865262854/il_570xN.4865262854_awu7.jpg',
+    'https://i1.sndcdn.com/artworks-000105986104-hwbpls-t500x500.jpg',
+    'https://assets.popbuzz.com/2020/40/is-joji-pink-guy-are-they-the-same-person-1602077911-view-0.jpg',
+    'https://i.etsystatic.com/19913145/r/il/993892/4865262854/il_570xN.4865262854_awu7.jpg',
+    'https://i1.sndcdn.com/artworks-000105986104-hwbpls-t500x500.jpg',
+    'https://assets.popbuzz.com/2020/40/is-joji-pink-guy-are-they-the-same-person-1602077911-view-0.jpg',
+    'https://i.etsystatic.com/19913145/r/il/993892/4865262854/il_570xN.4865262854_awu7.jpg',
+    'https://i1.sndcdn.com/artworks-000105986104-hwbpls-t500x500.jpg',
+    'https://assets.popbuzz.com/2020/40/is-joji-pink-guy-are-they-the-same-person-1602077911-view-0.jpg',
+    'https://i.etsystatic.com/19913145/r/il/993892/4865262854/il_570xN.4865262854_awu7.jpg',
+    'https://i1.sndcdn.com/artworks-000105986104-hwbpls-t500x500.jpg',
+    // Add more image links as needed
+  ];
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {

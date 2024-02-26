@@ -12,7 +12,7 @@
       <lightgallery [settings]="settings" [onBeforeSlide]="onBeforeSlide">
           <a *ngFor="let link of images" [href]="link" class="gallery-item">
           <div class="img-responsive-wrapper">
-            <img [src]="link" alt="Image" class="img-responsive">
+            <img [src]="thumbnails[0]" alt="Image" class="img-responsive">
           </div>
         </a>
       </lightgallery>

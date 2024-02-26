@@ -8,9 +8,8 @@
   <div id="gallery-wrapper">
     <lightgallery [settings]="settings" [onBeforeSlide]="onBeforeSlide">
 
-      <a *ngFor="let link of imageLinks" [href]="link" 
+      <a *ngFor="let link of imageLinks" [href]="link"
         class="gallery-item"
-        data-lg-size="480-475-480, 800-791-800, 1406-1390"
       >
         <div class="img-responsive-wrapper">
           <img [src]="link" alt="Image" class="img-responsive">

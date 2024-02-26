@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import lgZoom from 'lightgallery/plugins/zoom';
+import { ipcRenderer } from 'electron';
+import * as fs from 'fs';
 import { BeforeSlideDetail } from 'lightgallery/lg-events';
 
 @Component({
@@ -17,6 +19,11 @@ export class HomeComponent implements OnInit {
   };
 
   imageLinks: string[] = [
+    'file:///home/egor/Projects/photo_explorer/images/copy_6.jpg',
+    'file:///home/egor/Projects/photo_explorer/images/copy_6.jpg',
+    'file:///home/egor/Projects/photo_explorer/images/copy_6.jpg',
+    'file:///home/egor/Projects/photo_explorer/images/copy_6.jpg',
+    'file:///home/egor/Projects/photo_explorer/images/copy_6.jpg',
     'https://images.unsplash.com/photo-1581894158358-5ecd2c518883?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1406&q=80',
     'https://images.unsplash.com/photo-1581894158358-5ecd2c518883?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1406&q=80',
     'https://images.unsplash.com/photo-1581894158358-5ecd2c518883?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1406&q=80',
@@ -49,4 +56,28 @@ export class HomeComponent implements OnInit {
     const { index, prevIndex } = detail;
     console.log(index, prevIndex);
   };
+
+  images: string[] = [];
+
+  loadImagesFromFolder(folderPath: string) {
+    fs.readdir(folderPath, (err, files) => {
+      if (err) {
+        console.error('Error reading folder:', err);
+        return;
+      }
+      this.images = files
+        .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file)) // Filter image files
+        .map(file => `file://${folderPath}/${file}`); // Convert file paths to URLs
+    });
+  }
+
+  openFolderDialog() {
+    // @ts-ignore
+    ipcRenderer.invoke('open-dialog', { properties: ['openDirectory'] }).then(result => {
+      if (!result.canceled && result.filePaths.length > 0) {
+        const folderPath = result.filePaths[0];
+        this.loadImagesFromFolder(folderPath);
+      }
+    });
+  }
 }

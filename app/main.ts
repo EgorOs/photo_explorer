@@ -1,4 +1,4 @@
-import {app, BrowserWindow, screen} from 'electron';
+import {app, BrowserWindow, ipcMain, screen, dialog} from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -80,4 +80,14 @@ try {
 } catch (e) {
   // Catch Error
   // throw e;
+}
+
+
+if (ipcMain) {
+  // @ts-ignore
+  ipcMain.handle('open-dialog', async (event, options) => {
+    return await dialog.showOpenDialog(options);
+  });
+} else {
+  console.error('ipcMain is not available. Make sure this code runs in the Electron main process.');
 }

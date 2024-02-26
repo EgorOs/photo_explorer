@@ -5,6 +5,12 @@
   <p>Hello gallery?</p>
   <a routerLink="/detail">{{ 'PAGES.HOME.GO_TO_DETAIL' | translate }}</a>
 
+  <button (click)="openFolderDialog()">Open Folder</button>
+
+  <!-- <div *ngIf="images.length > 0">
+    <img *ngFor="let imageUrl of images" [src]="imageUrl" alt="Image">
+  </div> -->
+
   <div id="gallery-wrapper">
     <lightgallery [settings]="settings" [onBeforeSlide]="onBeforeSlide">
 

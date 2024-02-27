@@ -1,10 +1,8 @@
 <div class="container">
 
-  <!-- <div *ngIf="images.length == -1; else noImagesMessage"> -->
+  <div *ngIf="images.length == 0; else controlPanel">
     <div id="open-image-folder" (click)="openFolderDialog()">Open Folder</div>
-  <!-- </div> -->
-
-  <input type="range" min="50" max="700" step="1" [(ngModel)]="iconSizeSlider" (input)="onSliderChange($event)">
+  </div>
 
   <div id="gallery-wrapper">
     <div *ngIf="images.length > 0">
@@ -12,9 +10,8 @@
 
           <a *ngFor="let link of images; let i = index" [href]="link" class="gallery-item" [attr.data-index]="i+1">
             <div class="img-responsive-wrapper" [style.height.px]="iconSizeSlider">
-              <img [src]="thumbnails[i]" alt="Image" class="img-responsive">
+              <img [src]="thumbnails[i]" class="img-responsive">
             </div>
-            <!-- <span class="img-idx">{{ i + 1}}</span> -->
           </a>
         
       </lightgallery>
@@ -29,6 +26,10 @@
   </div>
 </div>
 
-<ng-template #noImagesMessage>
-  <p>No images found</p>
+<ng-template #controlPanel>
+  <div id="control-panel-wrapper">
+      <span>Preview size</span><input class='slider' id="icon-size-slider" type="range" min="50" max="700" step="1" [(ngModel)]="iconSizeSlider" (input)="onSliderChange($event)">
+  </div>
+  <div id="control-panel-below">
+  </div>
 </ng-template>

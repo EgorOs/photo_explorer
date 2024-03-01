@@ -63,3 +63,10 @@ jobs:
 
     - name: Build the app
       run: npm run electron:build
+
+    - name: Upload Release Artifact
+      uses: softprops/action-gh-release@v1
+      with:
+        files: release/*
+        tag_name: ${{ github.sha }}
+        token: ${{ secrets.GITHUB_TOKEN }}

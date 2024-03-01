@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div *ngIf="images.length == 0; else controlPanel">
+  <div *ngIf="images.length === 0; else controlPanel">
     <div id="open-image-folder" (click)="openFolderDialog()">Open Folder</div>
   </div>
 

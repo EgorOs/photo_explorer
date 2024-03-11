@@ -65,7 +65,7 @@ jobs:
       run: npm run electron:build
 
     - name: Upload Release Artifact
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         files: release/*
         tag_name: v0.0.1-dev
